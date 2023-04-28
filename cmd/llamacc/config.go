@@ -37,7 +37,7 @@ type Config struct {
 }
 
 var DefaultConfig = Config{
-	Function: "gcc",
+	Function: "nvcc",
 	LocalCC:  "cc",
 	LocalCXX: "c++",
 }

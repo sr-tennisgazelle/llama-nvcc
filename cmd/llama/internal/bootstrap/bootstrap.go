@@ -56,10 +56,7 @@ type BootstrapCommand struct {
 
 func (*BootstrapCommand) Name() string     { return "bootstrap" }
 func (*BootstrapCommand) Synopsis() string { return "Configure Llama and set up AWS resources" }
-func (*BootstrapCommand) Usage() string {
-	return `bootstrap [flags]
-`
-}
+func (*BootstrapCommand) Usage() string { return `bootstrap [flags]` }
 
 func (c *BootstrapCommand) SetFlags(flags *flag.FlagSet) {
 }
