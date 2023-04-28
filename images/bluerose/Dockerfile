@@ -24,11 +24,11 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # install NvidiaSystems (nsys) profiler
-COPY build/container/nsys.deb .
-RUN apt-get update \
-    && apt-get install -y ./nsys.deb \
-    && rm -f nsys.deb \
-    && rm -rf /var/lib/apt/lists/*
+# COPY build/container/nsys.deb .
+# RUN apt-get update \
+#     && apt-get install -y ./nsys.deb \
+#     && rm -f nsys.deb \
+#     && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update \
     && apt-get install -y zlib1g libssl3 \
@@ -40,8 +40,8 @@ ENV LD_LIBRARY_PATH /usr/local/cuda/compat:/usr/local/cuda/lib64
 FROM runtime-environment as runtime
 
 # The build of the current working tree is produced externally
-COPY build/bluerose /usr/local/bin/bluerose
-COPY build/tests/run /usr/local/bin/bluerose.test
+# COPY build/bluerose /usr/local/bin/bluerose
+# COPY build/tests/run /usr/local/bin/bluerose.test
 
 # If needed, add .so libraries from the build
 #ENV LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
@@ -122,10 +122,9 @@ RUN curl -sL https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}
 # RUN chmod +x /usr/local/bin/bench
 
 COPY --from=llama /llama_runtime /llama_runtime
-COPY /build ./build
-COPY Makefile ./Makefile
-ARG build_folder build/
+COPY /tmp/llama.*/build/ ./build/
+# COPY /llama_runtime/Makefile ./Makefile
 
 WORKDIR /
 # ENTRYPOINT['/']
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/llama_runtime"]
